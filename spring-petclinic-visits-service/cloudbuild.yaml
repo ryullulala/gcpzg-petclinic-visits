@@ -1,0 +1,13 @@
+steps:
+  # Build the container image
+  - name: maven:3-jdk-8
+    entrypoint: mvn
+    args: ['clean','install','-PbuildDocker']
+  # Push the container image to Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'push', 'asia-northeast3-docker.pkg.dev/hyunyoung-01-368306/gcpzg/spring-petclinic-visits-service' ]
+
+# Build Logging
+logsBucket: 'cloud_logs9'
+options:
+  logging: GCS_ONLY
